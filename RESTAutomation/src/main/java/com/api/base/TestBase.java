@@ -21,18 +21,18 @@ import com.relevantcodes.extentreports.LogStatus;
 
 
 public class TestBase {
-	
+
 	public XSSFSheet sheet;
 	public Properties config;
-	public ExtentTest extentTest;
-	public ExtentReports extentReports;
-	public String extentReportFile;
+	public static ExtentTest extentTest;
+	public static ExtentReports extentReports;
+	public static String extentReportFile;
 	public String URI;
 	public ReadExcel excel;
-	
+
 	@BeforeSuite
 	public void init(){
-		
+
 		config = new Properties(); //loading config.properties file
 		try {
 			FileInputStream fis = new FileInputStream(System.getProperty("user.dir")+"//src//main//java//com//api//config//config.properties");
@@ -45,25 +45,15 @@ public class TestBase {
 		URI=config.getProperty("baseURL"); //fetch baseURL
 		if(config.getProperty("isProxyApplicable").equals("true")) //setting proxy
 			RestAssured.proxy(config.getProperty("proxyURL"), Integer.parseInt(config.getProperty("proxyPort")));
-
 		//initializing Extent Reports
 		extentReportFile=System.getProperty("user.dir")+config.getProperty("extentReportPath")+config.getProperty("projectNameAppender")+"_"+new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date())+".html";
-//		System.out.println(extentReportFile);
-		
-	}
-	
-	public void createExcelWorkBookAndStartExtentTest(int excelSheetIndex, String extentTestName){
-		excel = new ReadExcel();
-		excel.createWorkBookAndSheet(excelSheetIndex);
-		System.out.println("Test Name -"+extentTestName);
 		extentReports =  new ExtentReports(extentReportFile);
-		extentTest=extentReports.startTest(extentTestName);
-		try{
-		System.out.println("Extent Test Obj -"+extentTest);
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
+	}
+
+	public void createExcelWorkBookAndStartExtentTest(int excelSheetIndex, String extentTestName){
+			excel = new ReadExcel();
+			excel.createWorkBookAndSheet(excelSheetIndex);
+			extentTest=extentReports.startTest(extentTestName);
 	}
 
 	@AfterSuite
