@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
-
-import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
@@ -22,12 +20,11 @@ import com.relevantcodes.extentreports.LogStatus;
 
 public class TestBase {
 
-	public XSSFSheet sheet;
 	public Properties config;
 	public static ExtentTest extentTest;
-	public static ExtentReports extentReports;
-	public static String extentReportFile;
-	public String URI;
+	private static ExtentReports extentReports;
+	private static String extentReportFile;
+	public String baseURL;
 	public ReadExcel excel;
 
 	@BeforeSuite
@@ -42,18 +39,19 @@ public class TestBase {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		URI=config.getProperty("baseURL"); //fetch baseURL
-		if(config.getProperty("isProxyApplicable").equals("true")) //setting proxy
+		baseURL=config.getProperty("baseURL"); //fetch baseURL
+		if(config.getProperty("isProxyEnabled").equals("true")) //setting proxy
 			RestAssured.proxy(config.getProperty("proxyURL"), Integer.parseInt(config.getProperty("proxyPort")));
 		//initializing Extent Reports
 		extentReportFile=System.getProperty("user.dir")+config.getProperty("extentReportPath")+config.getProperty("projectNameAppender")+"_"+new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date())+".html";
 		extentReports =  new ExtentReports(extentReportFile);
+
 	}
 
 	public void createExcelWorkBookAndStartExtentTest(int excelSheetIndex, String extentTestName){
-			excel = new ReadExcel();
-			excel.createWorkBookAndSheet(excelSheetIndex);
-			extentTest=extentReports.startTest(extentTestName);
+		excel = new ReadExcel();
+		excel.createWorkBookAndSheet(excelSheetIndex);
+		extentTest=extentReports.startTest(extentTestName);
 	}
 
 	@AfterSuite

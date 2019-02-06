@@ -5,12 +5,11 @@
     <classes>
       <class name="com.api.script.Script1">
         <methods>
-          <include name="s1_t1"/>
+          <include name="s1_singleUser"/>
           <include name="beforeClass"/>
-          <include name="s1_t2"/>
-          <include name="tearDown"/>
-          <include name="testBase"/>
-          <include name="afterSuite"/>
+          <include name="tearDown_suite"/>
+          <include name="init"/>
+          <include name="tearDown_class"/>
         </methods>
       </class> <!-- com.api.script.Script1 -->
     </classes>

@@ -6,6 +6,7 @@ import static io.restassured.RestAssured.*;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import com.api.base.TestBase;
+import static org.hamcrest.Matchers.*;
 import com.relevantcodes.extentreports.LogStatus;
 public class Script2 extends TestBase{
 
@@ -16,31 +17,31 @@ public class Script2 extends TestBase{
 	}
 
 	@Test
-	public void s2_t1(){
+	public void s2_single_user_not_found(){
 
-		URI=URI+excel.getCellValue("t1", "ServiceURL");
+		String URI=baseURL+excel.getCellValue("t1", "ServiceURL");
 		extentTest.log(LogStatus.INFO, "s2_t1");
-		/*given().pathParam("users", excel.getCellValue("t1", "PathParam")).
-		when().get(URI).
-		then().assertThat().statusCode(200);*/
+		given().pathParam("users", excel.getCellValue("t1", "PathParam")).
+		when().get(baseURL).
+		then().assertThat().statusCode(200);
 
 	}
 
-	@Test(enabled=true)
-	public void s2_t2() {
+	@Test(enabled=false)
+	public void s2_create() {
 
-		URI=URI+excel.getCellValue("t2", "ServiceURL");
+		String URI=baseURL+excel.getCellValue("t2", "ServiceURL");
 		extentTest.log(LogStatus.INFO, "s2_t2");
-	/*	EmployeeDetails details = new EmployeeDetails();
-		details.setName("Maximus");
-		details.setJob("employee");
+		//EmployeeDetails details = new EmployeeDetails();
+		//details.setName("Maximus");
+		//details.setJob("employee");
 
 		Response response =  given().contentType(ContentType.JSON).formParam("name", "Maximus","job","employee").
 		when().post();
 		
 		response.then().assertThat().statusCode(201);
 		
-		System.out.println(response.getBody().asString());*/
+		System.out.println(response.getBody().asString());
 
 	}
 	 
