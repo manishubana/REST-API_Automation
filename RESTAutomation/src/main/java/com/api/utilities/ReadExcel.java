@@ -61,8 +61,8 @@ public class ReadExcel {
 	}
 
 	public String getCellValue(String rowName, String colName){
-		System.out.println("Row->"+rowIndexMapper.get(rowName));
-		System.out.println("Col->"+colIndexMapper.get(colName));
+		//System.out.println("Row->"+rowIndexMapper.get(rowName));
+		//System.out.println("Col->"+colIndexMapper.get(colName));
 		cell=sheet.getRow(rowIndexMapper.get(rowName)).getCell(colIndexMapper.get(colName));
 		if(cell.getCellType()==CellType.STRING)
 			return cell.getStringCellValue();

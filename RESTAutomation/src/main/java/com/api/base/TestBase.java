@@ -8,17 +8,19 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
+
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
+import com.api.utilities.RESTUtil;
 import com.api.utilities.ReadExcel;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
 
-public class TestBase {
+public class TestBase extends RESTUtil{
 
 	public Properties config;
 	public static ExtentTest extentTest;
