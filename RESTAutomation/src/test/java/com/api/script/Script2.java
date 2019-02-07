@@ -20,7 +20,7 @@ public class Script2 extends TestBase{
 	public void s2_single_user_not_found(){
 
 		String URI=baseURL+excel.getCellValue("t1", "ServiceURL");
-		extentTest.log(LogStatus.INFO, "s2_t1");
+		report.log(LogStatus.INFO, "s2_t1");
 		given().pathParam("users", excel.getCellValue("t1", "PathParam")).
 		when().get(baseURL).
 		then().assertThat().statusCode(200);
@@ -31,7 +31,7 @@ public class Script2 extends TestBase{
 	public void s2_create() {
 
 		String URI=baseURL+excel.getCellValue("t2", "ServiceURL");
-		extentTest.log(LogStatus.INFO, "s2_t2");
+		report.log(LogStatus.INFO, "s2_t2");
 		//EmployeeDetails details = new EmployeeDetails();
 		//details.setName("Maximus");
 		//details.setJob("employee");

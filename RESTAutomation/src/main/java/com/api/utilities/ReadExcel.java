@@ -31,7 +31,7 @@ public class ReadExcel {
 	public void createWorkBookAndSheet(int workSheetIndex){
 
 		try {
-			file = new FileInputStream(new File(System.getProperty("user.dir")+"//src//main//java//com//api//config//API_Datapool.xlsx"));
+			file = new FileInputStream(new File(System.getProperty("user.dir")+"//src//test//resources//com//api//config//API_Datapool.xlsx"));
 			workbook = new XSSFWorkbook(file); // Create Workbook instance holding reference to .xlsx file 
 			sheet = workbook.getSheetAt(workSheetIndex); // Get first/desired sheet from the workbook
 			indexingRowsAndColumns(); //create indexes for Row Names and Column Names

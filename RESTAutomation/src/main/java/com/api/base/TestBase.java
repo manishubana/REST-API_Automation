@@ -20,10 +20,10 @@ import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
 
-public class TestBase extends RESTUtil{
+public class TestBase{
 
 	public Properties config;
-	public static ExtentTest extentTest;
+	public static ExtentTest report;
 	private static ExtentReports extentReports;
 	private static String extentReportFile;
 	public String baseURL;
@@ -34,7 +34,7 @@ public class TestBase extends RESTUtil{
 
 		config = new Properties(); //loading config.properties file
 		try {
-			FileInputStream fis = new FileInputStream(System.getProperty("user.dir")+"//src//main//java//com//api//config//config.properties");
+			FileInputStream fis = new FileInputStream(System.getProperty("user.dir")+"//src//test//resources//com//api//config//config.properties");
 			config.load(fis);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -53,17 +53,21 @@ public class TestBase extends RESTUtil{
 	public void createExcelWorkBookAndStartExtentTest(int excelSheetIndex, String extentTestName){
 		excel = new ReadExcel();
 		excel.createWorkBookAndSheet(excelSheetIndex);
-		extentTest=extentReports.startTest(extentTestName);
+		report=extentReports.startTest(extentTestName);
 	}
-
+	
+	public void methodInfo(){ //method to return the method name of the respective @Test
+		report.log(LogStatus.INFO, new Throwable().getStackTrace()[2].getMethodName());
+	}
+	
 	@AfterSuite
 	public void tearDown_suite(){
 		extentReports.flush(); // writing report
 	}
-
+	
 	@AfterClass
 	public void tearDown_class() throws IOException{
-		extentTest.log(LogStatus.INFO, "Script Ends");
-		extentReports.endTest(extentTest); // close extent report
+		report.log(LogStatus.INFO, "Script Ends");
+		extentReports.endTest(report); // close extent report
 	}
 }
